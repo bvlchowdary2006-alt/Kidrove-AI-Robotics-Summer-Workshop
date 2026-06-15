@@ -67,12 +67,13 @@ export const RegistrationForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error('Failed to submit');
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to submit');
       setSubmitState('success');
       reset();
-    } catch {
+    } catch (err: any) {
       setSubmitState('idle');
-      alert('Something went wrong. Please try again.');
+      alert(err.message || 'Something went wrong. Please try again.');
     }
   };
 

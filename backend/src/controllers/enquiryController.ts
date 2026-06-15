@@ -1,8 +1,16 @@
 import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 import { Enquiry } from '../models/Enquiry';
 
 export const submitEnquiry = async (req: Request, res: Response) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database not connected. Please set MONGODB_URI in environment variables.',
+      });
+    }
+
     const { name, email, phone, parentName, childAge } = req.body;
 
     const enquiry = await Enquiry.create({
