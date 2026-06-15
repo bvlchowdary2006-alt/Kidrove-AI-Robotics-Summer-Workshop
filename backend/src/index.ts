@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import mongoose from 'mongoose';
 import { config } from './config';
 import enquiryRouter from './routes/enquiry';
@@ -7,13 +6,6 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 
 const app = express();
 
-app.use(
-  cors({
-    origin: config.corsOrigin,
-    methods: ['POST', 'GET'],
-    allowedHeaders: ['Content-Type'],
-  })
-);
 app.use(express.json({ limit: '16kb' }));
 
 app.get('/api/health', (_req, res) => {
