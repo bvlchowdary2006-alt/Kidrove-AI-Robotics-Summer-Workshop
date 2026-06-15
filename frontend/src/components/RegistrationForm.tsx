@@ -61,7 +61,8 @@ export const RegistrationForm = () => {
   const onSubmit = async (data: FormData) => {
     setSubmitState('loading');
     try {
-      const res = await fetch('/api/enquiry', {
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiUrl}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
